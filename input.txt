@@ -1,0 +1,42 @@
+import java.io.File;
+import java.util.Scanner;
+
+//extends
+/*
+public static void static true
+*/
+
+"static"
+public class Main {
+	static int totalLines = 0;
+	public static void main(String[] args) throws Exception{
+		File file = new File("E:\\mycode");
+		File[] files = file.listFiles();//将mycode中的文件放到files中
+		fileReader(files);
+		System.out.println(totalLines);
+	}
+	
+	public static void fileReader(File[] files) throws Exception{
+		for(int i = 0; i < files.length; i++){
+			if(files[i].isFile()){
+				if(files[i].toString().matches(".*java")){
+					totalLines += lines(files[i]);
+				}
+			}
+			else if(files[i].isDirectory())
+				fileReader(files[i].listFiles());
+		}
+	}
+	
+	public static int lines(File file) throws Exception{
+		Scanner scanner = new Scanner(file);
+		int lines = 0;
+		while(scanner.hasNext())
+		{
+			scanner.nextLine();
+			lines++;
+		}
+		scanner.close();
+		return lines;
+	}
+}
